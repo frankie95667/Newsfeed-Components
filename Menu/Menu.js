@@ -34,6 +34,9 @@ let menuItems = [
   
 */
 
+/**********************************************/
+/*************** Menu Component ***************/
+/**********************************************/
 function createMenu(items){
   const menu = document.createElement('div');
   menu.classList.add('menu');
@@ -61,5 +64,6 @@ function createMenu(items){
   return menu;
 }
 
+// append menu to the header
 const header = document.querySelector('.header');
 header.append(createMenu(menuItems));

@@ -3,7 +3,7 @@
 const data = [
   {
     title: 'Lambda School Students: "We\'re the best!"',
-    date: 'Nov 5th, 2018',
+    date: "Nov 5th, 2018",
     firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
         moff wicket tatooine luke.Solo wampa wampa calrissian yoda moff.Darth grievous darth gonk darth hutt.Darth baba skywalker
         watto fett jango maul han.Mon ewok sidious sidious lando kenobi grievous gamorrean solo.Yoda wedge utapau darth calamari.
@@ -23,8 +23,8 @@ const data = [
         moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`
   },
   {
-    title: 'Javascript and You, ES6',
-    date: 'May 7th, 2019',
+    title: "Javascript and You, ES6",
+    date: "May 7th, 2019",
     firstParagraph: `Alohamora wand elf parchment, Wingardium Leviosa hippogriff, house dementors betrayal. Holly, Snape centaur portkey ghost
         Hermione spell bezoar Scabbers. Peruvian-Night-Powder werewolf, Dobby pear-tickle half-moon-glasses, Knight-Bus. Padfoot
         snargaluff seeker: Hagrid broomstick mischief managed. Snitch Fluffy rock-cake, 9 ¾ dress robes I must not tell lies. Mudbloods
@@ -43,8 +43,8 @@ const data = [
         sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`
   },
   {
-    title: 'React vs Angular vs Vue',
-    date: 'June 7th, 2019',
+    title: "React vs Angular vs Vue",
+    date: "June 7th, 2019",
     firstParagraph: `Bulbasaur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ivysaur Lorem ipsum dolor sit amet, consectetur adipiscing
         elit. Venusaur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Charmander Lorem ipsum dolor sit amet, consectetur
         adipiscing elit. Charmeleon Lorem ipsum dolor sit amet, consectetur adipiscing elit. Charizard Lorem ipsum dolor sit amet,
@@ -71,8 +71,8 @@ const data = [
         Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`
   },
   {
-    title: 'Professional Software Development in 2019',
-    date: 'Jan 1st, 2019',
+    title: "Professional Software Development in 2019",
+    date: "Jan 1st, 2019",
     firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
           hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
           Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
@@ -89,12 +89,13 @@ const data = [
 ];
 
 data.push({
-  title: 'Native American burial grounds threatened',
-  date: 'February 12, 2020',
-  firstParagraph: 'Construction crews blowing up parts of a national monument to make way for the border wall could be on the verge of destroying sacred burial sites, an Arizona congressman who represents the area told CNN.',
+  title: "Native American burial grounds threatened",
+  date: "February 12, 2020",
+  firstParagraph:
+    "Construction crews blowing up parts of a national monument to make way for the border wall could be on the verge of destroying sacred burial sites, an Arizona congressman who represents the area told CNN.",
   secondParagraph: `But Rep. Raúl Grijalva, an Arizona Democrat, said he's still hoping the crews will change course before it's too late.`,
   thirdParagraph: `"You can't replace these things. You can't fix them once they're gone," Grijalva said. "And as someone that grew up in the borderlands, it's painful to know that this is occurring."`
-})
+});
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
@@ -121,47 +122,50 @@ data.push({
 
 */
 
-function createArticle(article){
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('article');
-  wrapper.style.transition = 'height .3s';
+/**********************************************/
+/************* Article Component **************/
+/**********************************************/
 
-  const title = document.createElement('h2');
+function createArticle(article) {
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("article");
+  wrapper.style.transition = "height .3s";
+
+  const title = document.createElement("h2");
   title.textContent = article.title;
 
-  const date = document.createElement('p');
-  date.classList.add('date');
+  const date = document.createElement("p");
+  date.classList.add("date");
   date.textContent = article.date;
-  
-  let pOne = document.createElement('p');
+
+  let pOne = document.createElement("p");
   pOne.textContent = article.firstParagraph;
 
-  let pTwo = document.createElement('p');
+  let pTwo = document.createElement("p");
   pTwo.textContent = article.secondParagraph;
 
-  let pThree = document.createElement('p');
+  let pThree = document.createElement("p");
   pThree.textContent = article.thirdParagraph;
 
-  const span = document.createElement('span');
-  span.classList.add('expandButton');
-  span.textContent = "\uFE40"
-  span.style.transition = 'transform .3s'
-  span.addEventListener('click', e => {
-    if(wrapper.classList.contains('article-open')) {
-      wrapper.classList.remove('article-open');
-      span.style.transform = 'rotate(0deg)';
+  const span = document.createElement("span");
+  span.classList.add("expandButton");
+  span.textContent = "\uFE40";
+  span.style.transition = "transform .3s";
+  span.addEventListener("click", e => {
+    wrapper.classList.toggle("article-open");
+    if (wrapper.classList.contains("article-open")) {
+      span.style.transform = "rotate(0deg)";
     } else {
-      wrapper.classList.add('article-open');
-      span.style.transform = 'rotate(180deg)';
+      span.style.transform = "rotate(180deg)";
     }
-  })
-  
-  const close = document.createElement('span');
-  close.classList.add('close-button');
-  close.textContent = '\u2715';
-  close.addEventListener('click', e => {
-    wrapper.style.display = 'none';
-  })
+  });
+
+  const close = document.createElement("span");
+  close.classList.add("close-button");
+  close.textContent = "\u2715";
+  close.addEventListener("click", e => {
+    wrapper.style.display = "none";
+  });
 
   wrapper.appendChild(title);
   wrapper.appendChild(date);
@@ -173,22 +177,25 @@ function createArticle(article){
   return wrapper;
 }
 
-function createForm(){
-  const form = document.createElement('form');
-  const title = document.createElement('input');
-  title.placeholder = 'Enter Title...'
-  const date = document.createElement('input');
+/**********************************************/
+/*************** Form Component ***************/
+/**********************************************/
+function createForm() {
+  const form = document.createElement("form");
+  const title = document.createElement("input");
+  title.placeholder = "Enter Title...";
+  const date = document.createElement("input");
   date.placeholder = "MM/DD/YYYY";
-  const firstParagraph = document.createElement('textarea');
-  firstParagraph.placeholder = "First Paragraph..."
-  const secondParagraph = document.createElement('textarea');
-  secondParagraph.placeholder = "Second Paragraph..."
-  const thirdParagraph = document.createElement('textarea');
+  const firstParagraph = document.createElement("textarea");
+  firstParagraph.placeholder = "First Paragraph...";
+  const secondParagraph = document.createElement("textarea");
+  secondParagraph.placeholder = "Second Paragraph...";
+  const thirdParagraph = document.createElement("textarea");
   thirdParagraph.placeholder = "Third Paragraph...";
-  const button = document.createElement('button');
+  const button = document.createElement("button");
   button.textContent = "SUBMIT";
 
-  button.addEventListener('click', e=> {
+  button.addEventListener("click", e => {
     e.preventDefault();
     const formData = {
       title: title.value,
@@ -196,14 +203,14 @@ function createForm(){
       firstParagraph: firstParagraph.value,
       secondParagraph: secondParagraph.value,
       thirdParagraph: thirdParagraph.value
-    }
+    };
     submitForm(formData);
     title.value = "";
     date.value = "";
     firstParagraph.value = "";
     secondParagraph.value = "";
     thirdParagraph.value = "";
-  })
+  });
 
   form.appendChild(title);
   form.appendChild(date);
@@ -215,38 +222,40 @@ function createForm(){
   return form;
 }
 
+// Creating array of article components from data
 const articles = data.map(article => {
   return createArticle(article);
-})
+});
 
-const articlesContainer = document.querySelector('.articles');
+// Appending each article to the .article container
+const articlesContainer = document.querySelector(".articles");
 articles.map(article => {
   return articlesContainer.appendChild(article);
-})
+});
 
-const formHeading = document.createElement('h2');
+// Appending heading and form to the body
+const formHeading = document.createElement("h2");
 formHeading.textContent = "Create a New Article";
-const body = document.querySelector('body');
+const body = document.querySelector("body");
 
 body.appendChild(formHeading);
 body.appendChild(createForm());
 
-function addArticle(data){
+// function to add new article component to the DOM
+function addArticle(data) {
   articlesContainer.prepend(createArticle(data));
 }
 
-function submitForm(formData){
+// a funcion to use the form data and create a new article from it. Requires all fields be to populated.
+function submitForm(formData) {
   let isValid = false;
-    try{
+  try {
     Object.values(formData).forEach(data => {
-      if(!data) {
-        console.error('You need to fill out all items');
+      if (!data) {
+        console.error("You need to fill out all items");
         throw {};
       }
-    })
+    });
     addArticle(formData);
-
-  } catch (e) {
-
-  }
+  } catch (e) {}
 }
