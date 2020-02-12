@@ -135,12 +135,14 @@ function articleComponent(article){
 
   const span = document.createElement('span');
   span.classList.add('expandButton');
-  span.textContent = `...`;
+  span.textContent = "\uFE40"
   span.addEventListener('click', e => {
     if(wrapper.classList.contains('article-open')) {
       wrapper.classList.remove('article-open');
+      span.style.transform = 'rotate(0deg)';
     } else {
       wrapper.classList.add('article-open');
+      span.style.transform = 'rotate(180deg)';
     }
   })
 
@@ -158,6 +160,6 @@ const articles = data.map(article => {
 })
 
 const articlesContainer = document.querySelector('.articles');
-articles.forEach(article => {
-  articlesContainer.appendChild(article);
+articles.map(article => {
+  return articlesContainer.appendChild(article);
 })
