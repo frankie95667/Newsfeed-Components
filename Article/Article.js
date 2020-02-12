@@ -88,6 +88,14 @@ const data = [
   }
 ];
 
+data.push({
+  title: 'Native American burial grounds threatened',
+  date: 'February 12, 2020',
+  firstParagraph: 'Construction crews blowing up parts of a national monument to make way for the border wall could be on the verge of destroying sacred burial sites, an Arizona congressman who represents the area told CNN.',
+  secondParagraph: `But Rep. Raúl Grijalva, an Arizona Democrat, said he's still hoping the crews will change course before it's too late.`,
+  thirdParagraph: `"You can't replace these things. You can't fix them once they're gone," Grijalva said. "And as someone that grew up in the borderlands, it's painful to know that this is occurring."`
+})
+
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
   <div class="article">
@@ -113,9 +121,10 @@ const data = [
 
 */
 
-function articleComponent(article){
+function createArticle(article){
   const wrapper = document.createElement('div');
   wrapper.classList.add('article');
+  wrapper.style.transition = 'height .3s';
 
   const title = document.createElement('h2');
   title.textContent = article.title;
@@ -136,6 +145,7 @@ function articleComponent(article){
   const span = document.createElement('span');
   span.classList.add('expandButton');
   span.textContent = "\uFE40"
+  span.style.transition = 'transform .3s'
   span.addEventListener('click', e => {
     if(wrapper.classList.contains('article-open')) {
       wrapper.classList.remove('article-open');
@@ -145,6 +155,13 @@ function articleComponent(article){
       span.style.transform = 'rotate(180deg)';
     }
   })
+  
+  const close = document.createElement('span');
+  close.classList.add('close-button');
+  close.textContent = '\u2715';
+  close.addEventListener('click', e => {
+    wrapper.style.display = 'none';
+  })
 
   wrapper.appendChild(title);
   wrapper.appendChild(date);
@@ -152,14 +169,84 @@ function articleComponent(article){
   wrapper.appendChild(pTwo);
   wrapper.appendChild(pThree);
   wrapper.appendChild(span);
+  wrapper.appendChild(close);
   return wrapper;
 }
 
+function createForm(){
+  const form = document.createElement('form');
+  const title = document.createElement('input');
+  title.placeholder = 'Enter Title...'
+  const date = document.createElement('input');
+  date.placeholder = "MM/DD/YYYY";
+  const firstParagraph = document.createElement('textarea');
+  firstParagraph.placeholder = "First Paragraph..."
+  const secondParagraph = document.createElement('textarea');
+  secondParagraph.placeholder = "Second Paragraph..."
+  const thirdParagraph = document.createElement('textarea');
+  thirdParagraph.placeholder = "Third Paragraph...";
+  const button = document.createElement('button');
+  button.textContent = "SUBMIT";
+
+  button.addEventListener('click', e=> {
+    e.preventDefault();
+    const formData = {
+      title: title.value,
+      date: date.value,
+      firstParagraph: firstParagraph.value,
+      secondParagraph: secondParagraph.value,
+      thirdParagraph: thirdParagraph.value
+    }
+    submitForm(formData);
+    title.value = "";
+    date.value = "";
+    firstParagraph.value = "";
+    secondParagraph.value = "";
+    thirdParagraph.value = "";
+  })
+
+  form.appendChild(title);
+  form.appendChild(date);
+  form.appendChild(firstParagraph);
+  form.appendChild(secondParagraph);
+  form.appendChild(thirdParagraph);
+  form.appendChild(button);
+
+  return form;
+}
+
 const articles = data.map(article => {
-  return articleComponent(article);
+  return createArticle(article);
 })
 
 const articlesContainer = document.querySelector('.articles');
 articles.map(article => {
   return articlesContainer.appendChild(article);
 })
+
+const formHeading = document.createElement('h2');
+formHeading.textContent = "Create a New Article";
+const body = document.querySelector('body');
+
+body.appendChild(formHeading);
+body.appendChild(createForm());
+
+function addArticle(data){
+  articlesContainer.prepend(createArticle(data));
+}
+
+function submitForm(formData){
+  let isValid = false;
+    try{
+    Object.values(formData).forEach(data => {
+      if(!data) {
+        console.error('You need to fill out all items');
+        throw {};
+      }
+    })
+    addArticle(formData);
+
+  } catch (e) {
+
+  }
+}

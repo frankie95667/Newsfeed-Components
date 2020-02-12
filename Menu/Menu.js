@@ -37,7 +37,8 @@ let menuItems = [
 function createMenu(items){
   const menu = document.createElement('div');
   menu.classList.add('menu');
-
+  menu.style.transition = 'left .5s';
+  
   const list = document.createElement('ul');
   
  items.map(item => {
